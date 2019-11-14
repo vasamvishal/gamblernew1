@@ -1,6 +1,6 @@
 #welcome gambler
 STAKES=100
-DAYS=4
+DAYS=6
 bet=1
 stake=100
 WIN=1
@@ -10,6 +10,7 @@ LOSS=0
 total=0;
 losstotal=0
 totalamount=0
+
 declare -A dictionary
 function percentage()
 {
@@ -57,31 +58,35 @@ do
    fi
 bet=1;
 STAKES=100;
-
 done
-
+function luckday(){
  luckyDay=$(printf "%s\n" ${dictionary[@]} | sort -nr | head -1 )
- unLuckyDay=$(printf "%s\n" ${dictionary[@]} | sort -nr | tail -1 )
- 
+ unLuckyDay=$(printf "%s\n" ${dictionary[@]} | sort -nr | tail -1 ) 
+ echo $totalamount 
  for i in ${!dictionary[@]}
- do
-   echo $i ":" ${dictionary[$i]}
- done
+   do
+     echo $i ":" ${dictionary[$i]}
+   done
  for k in ${!dictionary[@]}
- do 
-   if [  ${dictionary[$k]} -eq $luckyDay ]
-   then
-	echo LuckyDay : $k Amount : $luckyDay
-   fi
-   if [ ${dictionary[$k]} -eq $unLuckyDay ] 
-   then
-      echo UnLuckyDay : $k Amount : $unLuckyDay
-   fi
+   do 
+     if [  ${dictionary[$k]} -eq $luckyDay ]
+        then
+	   echo LuckyDay : $k Amount : $luckyDay
+     fi
+     if [ ${dictionary[$k]} -eq $unLuckyDay ] 
+        then
+            echo UnLuckyDay : $k Amount : $unLuckyDay
+     fi
  done
-
+}
 echo "no of losses" $loss
 echo "no of wins" $win
-
-
 }
-gamble
+if [ $totalamount -ge -1 ]
+then
+ 
+   gamble
+   luckday
+
+fi
+
