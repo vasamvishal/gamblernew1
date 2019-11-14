@@ -82,11 +82,9 @@ function luckday(){
 echo "no of losses" $loss
 echo "no of wins" $win
 }
-if [ $totalamount -ge -1 ]
-then
- 
+  while [ $totalamount -ge -1 ]
+   do 
    gamble
    luckday
-
-fi
+    done
 
