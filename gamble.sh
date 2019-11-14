@@ -28,7 +28,6 @@ do
 	if [ $STAKES -ge $maxlimit ]
            then
 	       win=$(( $win+1 ))
-		echo "win" $win
 	       break;
 	fi
      else
@@ -36,7 +35,6 @@ do
         if [ $STAKES -le $minlimit ]
 	   then
               loss=$(( $loss+1 ))
-              echo "loss" $loss
 	      break
 	fi
      fi
@@ -44,14 +42,16 @@ do
    if [ $STAKES == $minlimit ]
       then
           totalamount=$(( $totalamount-$minlimit ))
-          echo $totalamount
       else
           diff=$(( $maxlimit-$stake ))
           totalamount=$(( $totalamount+$diff ))
-	  echo $totalamount
    fi
 bet=1;
 STAKES=100;
 done
+echo "no of losses" $loss
+echo "no of wins" $win
+echo "totalamount" $totalamount
+
 }
 gamble
