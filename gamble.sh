@@ -5,6 +5,7 @@ DAYS=6
 BETAMOUNT=1
 WIN=1
 LOSS=0
+EXPECTED_AMOUNT=-1
 
 #variable
 stake=$STAKES
@@ -64,28 +65,30 @@ function gambling()
 }
 
 function searchingDictionary()
-{
+{       
+        local days
+        local keys
 	profitValue=$(printf "%s\n" ${daysValue[@]} | sort -nr | head -1 )
 	lossValue=$(printf "%s\n" ${daysValue[@]} | sort -nr | tail -1 ) 
 	echo $totalamount 
-	for i in ${!daysValue[@]}
+	for days  in ${!daysValue[@]}
 	do
- 		echo $i ":" ${daysValue[$i]}
+ 		echo $days ":" ${daysValue[$days]}
    	done
-	for k in ${!daysValue[@]}
+	for keys in ${!daysValue[@]}
   	do 
-		if [  ${daysValue[$k]} -eq $profitValue ]
+		if [  ${daysValue[$keys]} -eq $profitValue ]
 		then
 	   		echo LuckyDay : $k Amount : $profitValue
    		fi
-		if [ ${daysValue[$k]} -eq $lossValue ] 
+		if [ ${daysValue[$keys]} -eq $lossValue ] 
    		then
 			echo UnLuckyDay : $k Amount : $lossValue
   		fi
  	done
 }
 
-	while [ $totalamount -ge -1 ]
+	while [ $totalamount -ge $EXPECTED_AMOUNT ]
    	do 
    		gambling
    		searchingDictionary
